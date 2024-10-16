@@ -2,15 +2,11 @@ import React from "react";
 import "./ListItem.css";
 
 interface Item {
-  _id: string;
-  first_name: string;
-  last_name: string;
+  postId: number;
+  id: number;
+  name: string;
   email: string;
-  children: {
-    first_name: string;
-    last_name: string;
-    email: string;
-  };
+  body: string;
 }
 
 interface ListItemProps {

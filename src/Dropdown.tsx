@@ -14,16 +14,11 @@ import { VirtualScroll } from "./VirtualScroll";
 import { MdClear } from "react-icons/md";
 
 interface Item {
-  _id: string;
-  first_name: string;
-  last_name: string;
+  postId: number;
+  id: number;
+  name: string;
   email: string;
-  children: {
-    first_name: string;
-    last_name: string;
-    email: string;
-  };
-  id: string;
+  body: string;
 }
 
 interface DropdownProps {
@@ -49,7 +44,7 @@ export const Dropdown = ({
   const [searchInputValue, setSearchInputValue] = useState("");
   const listRef = useRef<HTMLDivElement | null>(null);
   const [loading, setIsLoading] = useState(false);
-  const [field, setField] = useState("first_name");
+  const [field, setField] = useState("name");
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(1);
   const dropdownRef = useRef<HTMLDivElement | null>(null)
@@ -72,13 +67,13 @@ export const Dropdown = ({
       try {
         if (withLazyLoading) {
           const { data } = await axios.get(
-            "http://localhost:3000/users?page=1"
+            "https://jsonplaceholder.typicode.com/comments?page=1"
           );
           setOptions(data);
           setFilteredOptions(data);
           setFilteredOptionsVirtual(data);
         } else {
-          const { data } = await axios.get("http://localhost:3000/users");
+          const { data } = await axios.get("https://jsonplaceholder.typicode.com/comments");
           setOptions(data);
           setFilteredOptions(data);
           setFilteredOptionsVirtual(data);
@@ -94,7 +89,7 @@ export const Dropdown = ({
     if (!loading) {
       try {
         const { data } = await axios.get(
-          `http://localhost:3000/users?page=${page}`
+          `https://jsonplaceholder.typicode.com/comments?page=${page}`
         );
         setFilteredOptions((prev) => [...prev, ...data]);
         setPage((prev) => prev + 1);
@@ -129,7 +124,7 @@ export const Dropdown = ({
     (item: Item) => {
       if (isSelected(item)) {
         const updatedSelected = selected.filter((selectedItem) => {
-          return selectedItem._id !== item._id;
+          return selectedItem.id !== item.id;
         });
         setSelected(updatedSelected);
       } else {
@@ -151,7 +146,7 @@ export const Dropdown = ({
     }
   }
   const isSelected = (item: Item) => {
-    return selected.some((selectedItem) => selectedItem._id === item._id);
+    return selected.some((selectedItem) => selectedItem.id === item.id);
   };
   const clearSelected = (e) => {
     e.stopPropagation();
