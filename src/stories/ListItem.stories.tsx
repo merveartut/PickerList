@@ -13,7 +13,7 @@ export default {
     component: ListItem
 } as Meta
 
-const Template: StoryFn<{item: Item, field: string}> = (args) => <ListItem {...args}/>;
+const Template: StoryFn<{item: Item, field: string, useCheckbox: boolean, isSelected: Function, onSelect: Function}> = (args) => <ListItem {...args}/>;
 
 
 export const Default = Template.bind({})
@@ -25,5 +25,8 @@ Default.args = {
       "email": "Eliseo@gardner.biz",
       "body": "laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium"
       },
-      field: "name"
+      field: "name",
+      useCheckbox: true,
+      onSelect: (item: Item) => console.log(item),
+      isSelected: (item: Item) => item.id === 0
 }

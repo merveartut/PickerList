@@ -2,7 +2,27 @@ import React, { useState } from "react";
 
 import { ListItem } from "./ListItem";
 
-export const VirtualScroll = ({
+interface Item {
+  postId: number;
+  id: number;
+  name: string;
+  email: string;
+  body: string;
+}
+
+interface ListItemProps {
+  rowHeight: number;
+  totalItems: number;
+  items: Item[];
+  visibleItemsLength: number;
+  containerHeight: number;
+  field:string;
+  onSelect: (item:Item) => void;
+  isSelected: (item:Item) => boolean;
+  useCheckbox: boolean;
+}
+
+export const VirtualScroll: React.FC<ListItemProps> = ({
   rowHeight,
   totalItems,
   items,
@@ -25,6 +45,7 @@ export const VirtualScroll = ({
   const handleScroll = (e: { currentTarget: { scrollTop: React.SetStateAction<number>; }; }) => {
     setScrollTop(e?.currentTarget?.scrollTop);
   };
+  console.log(isSelected,"kkkk")
   return (
     <div
       style={{
