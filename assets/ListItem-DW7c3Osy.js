@@ -1,1 +1,0 @@
-import{j as n}from"./jsx-runtime-CkxqCPlQ.js";const e=({item:s,field:r,useCheckbox:x,onSelect:c,isSelected:o})=>n.jsxs("div",{className:`${o(s)?"selected-item":"list-item"}`,onClick:()=>c(s),children:[x&&n.jsx("input",{type:"checkbox",checked:o(s),className:"checkbox",onChange:()=>c(s)}),n.jsx("div",{onClick:()=>c(s),children:s[r]})]});export{e as L};
