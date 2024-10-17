@@ -1,50 +1,68 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# PickerList
 
-Currently, two official plugins are available:
+PickerList is a React component that implements a dropdown with advanced features like lazy loading, virtual scrolling, and filtering. The project is powered by Storybook for easy visualization and documentation of the components.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Storybook
 
-## Expanding the ESLint configuration
+You can view the live Storybook documentation for PickerList at:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+[Storybook Demo](https://merveartut.github.io/PickerList/)
 
-- Configure the top-level `parserOptions` property like this:
+## Features
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- **Lazy Loading:** Efficient data loading as you scroll.
+- **Virtual Scroll:** Renders only visible items for performance.
+- **Filtering:** Allows filtering of dropdown options.
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/merveartut/PickerList.git
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+## Running Storybook
+
+To start the Storybook environment locally:
+```bash
+npm run storybook
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Build for Production
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+To build the Storybook for deployment:
+```bash
+npm run build-storybook
 ```
+
+Deploy Storybook to GitHub Pages:
+```bash
+npm run deploy
+```
+
+## Usage
+
+In your project, import the PickerList component:
+
+```jsx
+import { Dropdown } from './components/Dropdown';
+```
+
+Customize it with props:
+```jsx
+<Dropdown
+  canFilter={true}
+  withLazyLoading={true}
+  singleSelect={false}
+  useCheckbox={true}
+/>
+```
+
+## License
+
+This project is licensed under the MIT License.
