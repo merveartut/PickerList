@@ -8,6 +8,43 @@ function DataTable({ columns, data, isZebra, isCheckbox }) {
 
   const [selectedRows, setSelectedRows] = useState([]);
   const [hiddenColumns, setHiddenColumns] = useState([]);
+  const [columnWidth, setColumnWidth] = useState(
+    columns.reduce((acc, col) => {
+      acc[col] = 150
+      return acc
+    }, {})
+  )
+  const handleMouseDown = (e, col) => {
+    e.preventDefault();
+    const startX = e.clientX;
+    const initialWidthLeft = columnWidth[col];
+    const nextColIndex = columns.indexOf(col) + 1;
+    const nextCol = columns[nextColIndex];
+    const initialWidthRight = nextCol ? columnWidth[nextCol] : 0;
+
+    const handleMouseMove = (moveEvent) => {
+      const dx = moveEvent.clientX - startX;
+
+      setColumnWidth((prevWidths) => {
+        const newWidthLeft = initialWidthLeft + dx;
+        const newWidthRight = nextCol ? initialWidthRight - dx : initialWidthRight;
+
+        return {
+          ...prevWidths,
+          [col]: Math.max(newWidthLeft, 50), // Ensure minimum width
+          ...(nextCol && { [nextCol]: Math.max(newWidthRight, 50) }),
+        };
+      });
+    };
+
+    const handleMouseUp = () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
+  };
   const sortedData = useMemo(() => {
     if (sortConfig.key) {
       return [...data].sort((a, b) => {
@@ -63,12 +100,12 @@ function DataTable({ columns, data, isZebra, isCheckbox }) {
       <thead>
         <tr>
           {isCheckbox && (
-            <th>
+            <th style={{textAlign:"center"}}>
               <input type="checkbox" onChange={() => handleSelectAll()} />
             </th>
           )}
           {columns.map((col) => (
-            <th key={col}>
+            <th key={col} style={{ width: columnWidth[col] }}>
               <div className="column-data">
                 {hiddenColumns.includes(col) ? '' : col}
 
@@ -83,6 +120,10 @@ function DataTable({ columns, data, isZebra, isCheckbox }) {
                   ]}
                   Icon={BsCaretDownFill}
                 ></Menu>
+                <div
+                  className="resize-handle"
+                  onMouseDown={(e) => handleMouseDown(e, col)}
+                />
               </div>
             </th>
           ))}
@@ -99,7 +140,7 @@ function DataTable({ columns, data, isZebra, isCheckbox }) {
           >
             {/* Checkbox for each row */}
             {isCheckbox && (
-              <td>
+              <td style={{width: "40px", textAlign:"center"}}>
                 <input
                   type="checkbox"
                   checked={selectedRows.includes(row.id)}
@@ -108,7 +149,7 @@ function DataTable({ columns, data, isZebra, isCheckbox }) {
               </td>
             )}
             {columns.map((col) =>
-            <td key={col} className={hiddenColumns.includes(col) ? "minimized-column" : ""}>
+            <td key={col} style={{ width: columnWidth[col] }} className={hiddenColumns.includes(col) ? "minimized-column" : ""}>
             {hiddenColumns.includes(col) ? (
               <div/>
             ) : (
