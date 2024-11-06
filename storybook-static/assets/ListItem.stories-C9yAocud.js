@@ -1,4 +1,0 @@
-import{j as m}from"./jsx-runtime-CkxqCPlQ.js";import{L as i}from"./ListItem-CJjtt6UC.js";import"./index-DJO9vBfz.js";const d={title:"ListItem",component:i},r=e=>m.jsx(i,{...e}),t=r.bind({});t.args={item:{postId:1,id:1,name:"id labore ex et quam laborum",email:"Eliseo@gardner.biz",body:`laudantium enim quasi est quidem magnam voluptate ipsam eos
-tempora quo necessitatibus
-dolor quam autem quasi
-reiciendis et nam sapiente accusantium`},field:"name",useCheckbox:!0,onSelect:e=>console.log(e),isSelected:e=>e.id===0};var s,a,o;t.parameters={...t.parameters,docs:{...(s=t.parameters)==null?void 0:s.docs,source:{originalSource:"args => <ListItem {...args} />",...(o=(a=t.parameters)==null?void 0:a.docs)==null?void 0:o.source}}};const l=["Default"];export{t as Default,l as __namedExportsOrder,d as default};
