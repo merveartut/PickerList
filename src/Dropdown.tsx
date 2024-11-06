@@ -130,6 +130,7 @@ export const Dropdown = ({
       } else {
         if (singleSelect) {
           setSelected([item]);
+          setIsOpen(false)
         } else {
           setSelected((prev) => [...prev, item]);
         }
@@ -172,14 +173,17 @@ export const Dropdown = ({
       <div className="input-wrapper">
        {!singleSelect && <div className="selected-chips">
           {selected.slice(0, 3).map((item, index) => (
+
             <div className="chip" key={index}>
               {item[field]}
               <span className="chip-close" onClick={() => handleSelect(item)}>
                 <MdClear />
               </span>
             </div>
+
           ))}
           {selected.length > 3 && <span className="more-chips"> +{selected.length - 3}</span>}
+
         </div>}
         <input
           value={singleSelect ? selectedValue : null}
@@ -199,17 +203,17 @@ export const Dropdown = ({
       {loading && <div>Loading more...</div>}
       {isOpen && (
         <div className="opened-list">
-          <div className="input-container">
-            {!singleSelect && <input type="checkbox" className="select-all-checkbox" checked={selected.length === filteredOptionsVirtual.length} onChange={() => handleSelectAll()}></input>}
-            {canFilter && (
+          {canFilter && <div className="input-container">
+            {!singleSelect && useCheckbox && <input type="checkbox" className="select-all-checkbox" checked={selected.length === filteredOptionsVirtual.length} onChange={() => handleSelectAll()}></input>}
+            
               <input
                 className="filter-input"
                 value={searchInputValue}
                 placeholder="Search.."
                 onChange={(e) => handleInputChange(e.target.value)}
               ></input>
-            )}
-          </div>
+            
+          </div>}
           {withLazyLoading ? (
             <List
               ref={listRef}

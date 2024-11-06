@@ -1,0 +1,42 @@
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  
+  .data-table th,
+  .data-table td {
+    border: 1px solid #ddd; /* Grid lines */
+    padding: 8px;
+  }
+  
+  .data-table thead {
+    background-color: #f4f4f4;
+  }
+  
+  .data-table .even-row {
+    background-color: #f9f9f9; /* Light color for zebra striping */
+  }
+  
+  .data-table .odd-row {
+    background-color: #ffffff; /* White color for zebra striping */
+  }
+  
+  .column-data {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .column-button {
+    background-color: none;
+    border: none;
+    cursor: pointer;
+  }
+ 
+  
+  .column-button:hover {
+    color: #007bff; /* Optional: Change color on hover */
+  }
+  .minimized-column {
+    width: 20px;
+  }
